@@ -129,14 +129,13 @@ function App() {
       originalAllCountryData,
       regionVal,
       inputSearchVal,
-      lengthSelected,
     },
     dispatch,
   ] = useReducer(reducer, initialState);
-  console.log(lengthSelected);
+
   async function fetchCountry() {
     try {
-      const res = await fetch(`./data/data.json`);
+      const res = await fetch(`./src/assets/data.json`);
       const data = await res.json();
 
       dispatch({ type: "dataReceived", payload: data });
