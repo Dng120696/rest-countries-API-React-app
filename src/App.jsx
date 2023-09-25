@@ -4,7 +4,6 @@ import CountryDetails from "./components/CountryDetails";
 import PageNotFound from "./components/PageNotFound";
 import Home from "./components/Home";
 import Header from "./components/Header";
-
 const storedSelectedCountry = localStorage.getItem("selectedCountry");
 
 const storedPreviousCountry = localStorage.getItem("previousCountry");
@@ -135,7 +134,7 @@ function App() {
 
   async function fetchCountry() {
     try {
-      const res = await fetch(`./src/assets/data.json`);
+      const res = await fetch(`./src/data.json`);
       const data = await res.json();
 
       dispatch({ type: "dataReceived", payload: data });
