@@ -4,7 +4,7 @@ import CountryDetails from "./components/CountryDetails";
 import PageNotFound from "./components/PageNotFound";
 import MainPage from "./components/MainPage";
 import Header from "./components/Header";
-
+import data from "./assets/data.json";
 const initialState = {
   isDark: JSON.parse(localStorage.getItem("isDark")) || false,
   status: "loading",
@@ -102,9 +102,6 @@ function App() {
 
   async function fetchCountry() {
     try {
-      const res = await fetch("./public/data.json");
-      const data = await res.json();
-
       dispatch({ type: "dataReceived", payload: data });
     } catch (error) {
       dispatch({ type: "dataFailed" });
