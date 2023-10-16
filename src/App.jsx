@@ -2,24 +2,13 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useReducer, useEffect } from "react";
 import CountryDetails from "./components/CountryDetails";
 import PageNotFound from "./components/PageNotFound";
-import Home from "./components/Home";
+import MainPage from "./components/MainPage";
 import Header from "./components/Header";
-const storedSelectedCountry = localStorage.getItem("selectedCountry");
-
-const storedPreviousCountry = localStorage.getItem("previousCountry");
-
-const parsedSelectedCountry = storedSelectedCountry
-  ? JSON.parse(storedSelectedCountry)
-  : null;
-const parsePreviousCountry = storedPreviousCountry
-  ? JSON.parse(storedPreviousCountry)
-  : null;
 
 const initialState = {
   isDark: JSON.parse(localStorage.getItem("isDark")) || false,
   status: "loading",
-  selectedCountry: parsedSelectedCountry,
-  previousCountry: parsePreviousCountry,
+  selectedCountry: JSON.parse(localStorage.getItem("selectedCountry")) || null,
   allSelectedCountry: [],
   originalAllCountryData: [],
   newAllCountryData: [],
@@ -38,29 +27,8 @@ function reducer(state, action) {
       };
     case "dataFailed":
       return { ...state, status: "error" };
-    case "getCountry": {
-      const selectedCountry = state.newAllCountryData[action.payload];
-
-      localStorage.setItem("selectedCountry", JSON.stringify(selectedCountry));
-      state.lengthSelected = state.allSelectedCountry.length;
-      return {
-        ...state,
-        allSelectedCountry: [...state.allSelectedCountry, selectedCountry],
-        selectedCountry: selectedCountry,
-      };
-    }
-    // case "goBack": {
-    //   if (state.allSelectedCountry > 2) {
-    //     state.lengthSelected -= 2;
-    //   } else {
-    //     state.lengthSelected--;
-    //   }
-    //   console.log(state.allSelectedCountry[state.lengthSelected]);
-    //   return {
-    //     ...state,
-    //     selectedCountry: state.allSelectedCountry[state.lengthSelected],
-    //   };
-    // }
+    case "selectedCountry":
+      return { ...state, selectedCountry: action.payload };
     case "searchCountry": {
       const searchCountry =
         action.payload === ""
@@ -134,7 +102,8 @@ function App() {
 
   async function fetchCountry() {
     try {
-      const res = await fetch(`./data.json`);
+      const res = await fetch(`../src/assets/data.json`);
+
       const data = await res.json();
 
       dispatch({ type: "dataReceived", payload: data });
@@ -155,7 +124,7 @@ function App() {
             <Route
               path="/"
               element={
-                <Home
+                <MainPage
                   isDark={isDark}
                   dispatch={dispatch}
                   onFetch={fetchCountry}
@@ -166,7 +135,7 @@ function App() {
                   inputSearchVal={inputSearchVal}
                 />
               }
-            ></Route>
+            />
             <Route
               path="country/:name"
               element={
@@ -178,6 +147,7 @@ function App() {
                 />
               }
             />
+
             <Route path="*" element={<PageNotFound />} />
           </Routes>
         </div>

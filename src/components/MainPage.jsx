@@ -6,7 +6,7 @@ import CountryBox from "./CountryBox";
 import Loading from "./Loading";
 import ErrorMessage from "./ErrorMessage";
 
-export default function Home({
+export default function MainPage({
   dispatch,
   status,
   newAllCountryData,

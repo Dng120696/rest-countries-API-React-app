@@ -8,6 +8,7 @@ function CountryBox({ newAllCountryData, dispatch }) {
           <Box
             key={index}
             country={country}
+            newAllCountryData={newAllCountryData}
             onClick={() =>
               dispatch({
                 type: "getCountry",

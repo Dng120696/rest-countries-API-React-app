@@ -1,11 +1,27 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 function CountryDetails({
-  selectedCountry,
   isDark,
   dispatch,
   newAllCountryData,
+  selectedCountry,
 }) {
+  const { name } = useParams();
+
+  useEffect(() => {
+    const storedCountry = JSON.parse(localStorage.getItem("selectedCountry"));
+    if (storedCountry && storedCountry.name === name) {
+      dispatch({ type: "selectedCountry", payload: storedCountry });
+    } else {
+      const country = newAllCountryData.find(
+        (country) => country.name === name
+      );
+      dispatch({ type: "selectedCountry", payload: country });
+      localStorage.setItem("selectedCountry", JSON.stringify(country));
+    }
+  }, [name, newAllCountryData, dispatch]);
+
   const {
     flags: { svg: flag },
     name: countryName,
@@ -21,6 +37,8 @@ function CountryDetails({
   } = selectedCountry;
   const navigate = useNavigate();
 
+  localStorage.setItem("selectedCountry", JSON.stringify(selectedCountry));
+
   const filterBorder = newAllCountryData.filter((country) => {
     if (!selectedCountry.borders) return;
     return selectedCountry.borders.includes(country.alpha3Code);
@@ -35,9 +53,6 @@ function CountryDetails({
             onClick={(e) => {
               e.preventDefault();
               navigate(-1);
-              // dispatch({
-              //   type: "getCountry",
-              // });
             }}
           >
             &larr; Back

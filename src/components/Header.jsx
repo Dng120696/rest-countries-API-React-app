@@ -4,25 +4,27 @@ import sun from "../assets/icon-sun.svg";
 
 function Header({ isDark, dispatch, onFetch }) {
   return (
-    <header className="header">
-      <nav className="nav">
-        <h1
-          className="header__name"
-          onClick={() => dispatch({ type: "reset" })}
-        >
-          <Link to="/" onClick={() => onFetch()}>
-            Where in the world?
-          </Link>
-        </h1>
-        <div
-          className="menu"
-          onClick={() => dispatch({ type: "isDarkMode", payload: !isDark })}
-        >
-          <img src={isDark ? sun : moon} alt="icon" />
-          <span>{`${isDark ? "Light" : "Dark"} Mode`}</span>
-        </div>
-      </nav>
-    </header>
+    <>
+      <header className="header">
+        <nav className="nav">
+          <h1
+            className="header__name"
+            onClick={() => dispatch({ type: "reset" })}
+          >
+            <Link to="/" onClick={() => onFetch()}>
+              Where in the world?
+            </Link>
+          </h1>
+          <div
+            className="menu"
+            onClick={() => dispatch({ type: "isDarkMode", payload: !isDark })}
+          >
+            <img src={isDark ? sun : moon} alt="icon" />
+            <span>{`${isDark ? "Light" : "Dark"} Mode`}</span>
+          </div>
+        </nav>
+      </header>
+    </>
   );
 }
 
