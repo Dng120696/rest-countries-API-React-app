@@ -102,8 +102,7 @@ function App() {
 
   async function fetchCountry() {
     try {
-      const res = await fetch(`./data.json`);
-
+      const res = await fetch("./public/data.json");
       const data = await res.json();
 
       dispatch({ type: "dataReceived", payload: data });
