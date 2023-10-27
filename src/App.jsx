@@ -124,8 +124,9 @@ function App() {
         <div className="wrapper">
           <Header isDark={isDark} dispatch={dispatch} />
           <Routes>
+            {/* <Route replace element={<MainPage />} /> */}
             <Route
-              path="/"
+              index
               element={
                 <MainPage
                   isDark={isDark}
