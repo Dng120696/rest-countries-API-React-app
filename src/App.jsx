@@ -107,9 +107,10 @@ function App() {
   useEffect(() => {
     async function fetchCountry() {
       try {
-        const res = await fetch("./data/data.json");
-
+        const res = await fetch("/data/data.json");
+        console.log(res);
         const data = await res.json();
+        console.log(data);
         dispatch({ type: "dataReceived", payload: data });
       } catch (error) {
         dispatch({ type: "dataFailed" });
