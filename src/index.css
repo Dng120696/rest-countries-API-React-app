@@ -92,7 +92,6 @@ html {
   @apply flex items-center justify-center w-full h-[50vh];
 }
 .spinner img {
-  @apply w-12 h-12;
   width: 5rem;
   height: 5rem;
   animation: 2s linear infinite rotate;

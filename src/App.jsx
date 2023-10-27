@@ -4,7 +4,7 @@ import CountryDetails from "./components/CountryDetails";
 import PageNotFound from "./components/PageNotFound";
 import MainPage from "./components/MainPage";
 import Header from "./components/Header";
-import data from "./assets/data.json";
+// import data from "./assets/data.json";
 const initialState = {
   isDark: JSON.parse(localStorage.getItem("isDark")) || false,
   status: "loading",
@@ -27,6 +27,10 @@ function reducer(state, action) {
       };
     case "dataFailed":
       return { ...state, status: "error" };
+    case "getCountry": {
+      const selectedCountry = state.newAllCountryData[action.payload];
+      return { ...state, selectedCountry };
+    }
     case "selectedCountry":
       return { ...state, selectedCountry: action.payload };
     case "searchCountry": {
@@ -100,14 +104,17 @@ function App() {
     dispatch,
   ] = useReducer(reducer, initialState);
 
-  async function fetchCountry() {
-    try {
-      dispatch({ type: "dataReceived", payload: data });
-    } catch (error) {
-      dispatch({ type: "dataFailed" });
-    }
-  }
   useEffect(() => {
+    async function fetchCountry() {
+      try {
+        const res = await fetch("./data/data.json");
+
+        const data = await res.json();
+        dispatch({ type: "dataReceived", payload: data });
+      } catch (error) {
+        dispatch({ type: "dataFailed" });
+      }
+    }
     fetchCountry();
   }, []);
 
@@ -115,7 +122,7 @@ function App() {
     <BrowserRouter>
       <div className={`${isDark ? "dark" : ""}`}>
         <div className="wrapper">
-          <Header isDark={isDark} dispatch={dispatch} onFetch={fetchCountry} />
+          <Header isDark={isDark} dispatch={dispatch} />
           <Routes>
             <Route
               path="/"
@@ -123,7 +130,6 @@ function App() {
                 <MainPage
                   isDark={isDark}
                   dispatch={dispatch}
-                  onFetch={fetchCountry}
                   status={status}
                   newAllCountryData={newAllCountryData}
                   originalAllCountryData={originalAllCountryData}

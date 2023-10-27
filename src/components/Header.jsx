@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import moon from "../assets/icon-moon.svg";
 import sun from "../assets/icon-sun.svg";
 
-function Header({ isDark, dispatch, onFetch }) {
+function Header({ isDark, dispatch }) {
   return (
     <>
       <header className="header">
@@ -11,9 +11,7 @@ function Header({ isDark, dispatch, onFetch }) {
             className="header__name"
             onClick={() => dispatch({ type: "reset" })}
           >
-            <Link to="/" onClick={() => onFetch()}>
-              Where in the world?
-            </Link>
+            <Link to="/">Where in the world?</Link>
           </h1>
           <div
             className="menu"

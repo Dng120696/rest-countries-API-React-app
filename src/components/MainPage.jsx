@@ -3,7 +3,7 @@ import SearchBox from "./SearchCountry";
 import SearchBoxAndRegionFilter from "./SearchBoxAndRegionFilter";
 import MainContainer from "./MainContainer";
 import CountryBox from "./CountryBox";
-import Loading from "./Loading";
+import { Loading } from "./Loading";
 import ErrorMessage from "./ErrorMessage";
 
 export default function MainPage({
