@@ -4,7 +4,7 @@ import CountryDetails from "./components/CountryDetails";
 import PageNotFound from "./components/PageNotFound";
 import MainPage from "./components/MainPage";
 import Header from "./components/Header";
-// import data from "./assets/data.json";
+
 const initialState = {
   isDark: JSON.parse(localStorage.getItem("isDark")) || false,
   status: "loading",
@@ -107,11 +107,11 @@ function App() {
   useEffect(() => {
     async function fetchCountry() {
       try {
-        const res = await fetch("/data/data.json");
+        const res = await fetch("./data.json");
         console.log(res);
-        const data = await res.json();
-        console.log(data);
-        dispatch({ type: "dataReceived", payload: data });
+        const dataCountry = await res.json();
+        console.log(dataCountry);
+        dispatch({ type: "dataReceived", payload: dataCountry });
       } catch (error) {
         dispatch({ type: "dataFailed" });
       }
