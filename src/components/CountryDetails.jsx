@@ -37,8 +37,6 @@ function CountryDetails({
   } = selectedCountry;
   const navigate = useNavigate();
 
-  localStorage.setItem("selectedCountry", JSON.stringify(selectedCountry));
-
   const filterBorder = newAllCountryData.filter((country) => {
     if (!selectedCountry.borders) return;
     return selectedCountry.borders.includes(country.alpha3Code);

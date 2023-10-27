@@ -9,7 +9,6 @@ const initialState = {
   isDark: JSON.parse(localStorage.getItem("isDark")) || false,
   status: "loading",
   selectedCountry: JSON.parse(localStorage.getItem("selectedCountry")) || null,
-  allSelectedCountry: [],
   originalAllCountryData: [],
   newAllCountryData: [],
   regionVal: "",
